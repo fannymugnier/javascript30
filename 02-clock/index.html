@@ -20,20 +20,31 @@
     const minutesHand = document.querySelector('.minutes');
     const hoursHand = document.querySelector('.hours');
 
-    function setDate() {
+    const convertInDegrees = (value, relation) => {
+      return (((value / relation) * 360) - 90);
+    }
+
+    const getTimeInfo = () => {
       const now = new Date();
       const seconds = now.getSeconds();
       const minutes = now.getMinutes();
       const hours = now.getHours();
-      const secondsAsDegrees = ((seconds / 60) * 360) - 90;
-      const minutesAsDegrees = ((minutes / 60) * 360) - 90;
-      const hoursAsDegrees = ((hours / 12) * 360) - 90;
-      secondsHand.style.transform = `rotate(${secondsAsDegrees}deg)`;
-      minutesHand.style.transform = `rotate(${minutesAsDegrees}deg)`;
-      hoursHand.style.transform = `rotate(${hoursAsDegrees}deg)`;
+      
+      const secondsAsDegrees = convertInDegrees(seconds, 60);
+      const minutesAsDegrees = convertInDegrees(minutes, 60);
+      const hoursAsDegrees = convertInDegrees(hours, 12);
+
+      return { seconds: secondsAsDegrees, minutes: minutesAsDegrees, hours: hoursAsDegrees }
     }
 
-    setInterval(setDate, 1000);
+    function setTimeOnClock() {
+      const timeInfo = getTimeInfo();
+      secondsHand.style.transform = `rotate(${timeInfo.seconds}deg)`;
+      minutesHand.style.transform = `rotate(${timeInfo.minutes}deg)`;
+      hoursHand.style.transform = `rotate(${timeInfo.hours}deg)`;
+    }
+
+    setInterval(setTimeOnClock, 1000);
   </script>
 </body>
 </html>
