@@ -20,25 +20,27 @@ h1 {
 
 .hand {
   position: absolute;
-  top: 50%;
   left: 50%;
   border: 2px solid #000;
   border-radius: 999px;
-  transform-origin: 0%;
-  transition: all .07s;
+  transform-origin: bottom center;
+  transition: all .1s;
   transition-timing-function: cubic-bezier(0.42, 0, 0, 1.73);
-  transform: rotate(-90deg);
+  width: 0;
 }
 
 .hours {
-  width: 20%;
+  top: 30%;
+  height: 20%;
 }
 
 .minutes {
-  width: 40%;
+  top: 10%;
+  height: 40%;
 }
 
 .seconds {
+  top: 5%;
+  height: 45%;
   border-width: 1px;
-  width: 45%;
 }
