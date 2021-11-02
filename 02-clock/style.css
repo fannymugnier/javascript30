@@ -1,0 +1,44 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.clock {
+  position: relative;
+  height: 400px;
+  width: 400px;
+  background-color: #fff;
+  border: 7px solid rgb(71, 71, 71);
+  border-radius: 999px;
+  margin: auto;
+}
+
+.hand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid #000;
+  border-radius: 999px;
+  transform-origin: 0%;
+  transition: all .07s;
+  transition-timing-function: cubic-bezier(0.42, 0, 0, 1.73);
+  transform: rotate(-90deg);
+}
+
+.hours {
+  width: 20%;
+}
+
+.minutes {
+  width: 40%;
+}
+
+.seconds {
+  border-width: 1px;
+  width: 45%;
+}
