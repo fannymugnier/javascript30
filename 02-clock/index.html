@@ -16,34 +16,37 @@
   </div>
 
   <script>
-    const secondsHand = document.querySelector('.seconds');
-    const minutesHand = document.querySelector('.minutes');
-    const hoursHand = document.querySelector('.hours');
-
-    const convertInDegrees = (value, relation) => {
-      return ((value / relation) * 360);
+    const convertInDegrees = (seconds, minutes, hours) => {
+      const secondsAsDegrees = ((seconds / 60) * 360);
+      const minutesAsDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6);
+      const hoursAsDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30);
+      
+      return { seconds: secondsAsDegrees, minutes: minutesAsDegrees, hours: hoursAsDegrees };
     }
-
+    
     const getTimeInfo = () => {
       const now = new Date();
       const seconds = now.getSeconds();
       const minutes = now.getMinutes();
       const hours = now.getHours();
       
-      const secondsAsDegrees = convertInDegrees(seconds, 60);
-      const minutesAsDegrees = convertInDegrees(minutes, 60);
-      const hoursAsDegrees = convertInDegrees(hours, 12);
-
-      return { seconds: secondsAsDegrees, minutes: minutesAsDegrees, hours: hoursAsDegrees }
+      const valuesAsDegrees = convertInDegrees(seconds, minutes, hours);
+      
+      return valuesAsDegrees;
     }
-
+    
     function setTimeOnClock() {
+      const secondsHand = document.querySelector('.seconds');
+      const minutesHand = document.querySelector('.minutes');
+      const hoursHand = document.querySelector('.hours');
       const timeInfo = getTimeInfo();
+      
       secondsHand.style.transform = `rotate(${timeInfo.seconds}deg)`;
       minutesHand.style.transform = `rotate(${timeInfo.minutes}deg)`;
       hoursHand.style.transform = `rotate(${timeInfo.hours}deg)`;
     }
 
+    setTimeOnClock();
     setInterval(setTimeOnClock, 1000);
   </script>
 </body>
