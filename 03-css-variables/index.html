@@ -16,20 +16,26 @@
     </div>
     <div class="control">
       <label for="saturation">Saturation:</label>
-      <input type="range" name="saturation" min="0" max="250" value="100">
+      <input type="range" name="saturation" min="0" max="250" value="100" data-unit="%">
     </div>
     
     <div class="control">
       <label for="blur">Blur:</label>
-      <input type="range" name="blur" min="0" max="25" value="0">
+      <input type="range" name="blur" min="0" max="25" value="0" data-unit="px">
     </div>
 
   </div>
   
   <img src="https://source.unsplash.com/random">
-  
-  <script>
 
+  <script>
+    function handleInputValueUpdate() {
+      const unit = this.dataset.unit || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + unit);
+    }
+
+    const inputs = document.querySelectorAll('.control input');
+    inputs.forEach(input => input.addEventListener('input', handleInputValueUpdate));
   </script>
 </body>
 </html>
