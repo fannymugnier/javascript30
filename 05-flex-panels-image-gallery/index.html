@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flex Panels Image Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -40,7 +41,18 @@
   </div>
 
   <script>
-    
+    function closeOpenedPanel(selectedPanel) {
+      const openedPanel = document.querySelector('.open');
+      if (openedPanel && openedPanel !== selectedPanel) openedPanel.classList.remove('open');
+    }
+
+    function toggleOpen() {
+      closeOpenedPanel(this);
+      this.classList.toggle('open');
+    }
+
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
   </script>
 </body>
 </html>
