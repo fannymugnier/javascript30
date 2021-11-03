@@ -10,20 +10,26 @@
 <body>
   <h1>Updating CSS <span class="keyword">variables</span> with JS</h1>
   <div class="controls">
-    <label for="saturation">Saturation</label>
-    <input type="range" name="saturation" min="0" max="250" value="100">
-  
-    <label for="frame">Frame Color</label>
-    <input type="color" name="frame" value="#009688">
+    <div class="control">
+      <label for="frame">Frame Color:</label>
+      <input type="color" name="frame" value="#009688">
+    </div>
+    <div class="control">
+      <label for="saturation">Saturation:</label>
+      <input type="range" name="saturation" min="0" max="250" value="100">
+    </div>
+    
+    <div class="control">
+      <label for="blur">Blur:</label>
+      <input type="range" name="blur" min="0" max="25" value="0">
+    </div>
 
-    <label for="blur">Blur</label>
-    <input type="range" name="blur" min="0" max="25" value="0">
   </div>
 
   <img src="https://source.unsplash.com/random">
 
   <script>
-    
+
   </script>
 </body>
 </html>
