@@ -33,25 +33,26 @@
       return results;
     }
 
+    function generateHTML(query, results) {
+      return results.map(result => {
+        const regex = new RegExp(query, 'gi');
+        const cityName = result.city.replace(regex, `<span class="keyword">${query}</span>`);
+        const stateName = result.state.replace(regex, `<span class="keyword">${query}</span>`);
+        const population = numberWithCommas(result.population);
+  
+        return `<li>${cityName}, ${stateName} - ${population}</li>`;
+      }).join('');
+    }
+
     function displayResults() {
       const query = this.value;
       let html = '';
 
       if(query) {
         const queryResults = getResults(query);
-        html = queryResults.map(result => {
-          const regex = new RegExp(query, 'gi');
-          const cityName = result.city.replace(regex, `<span class="keyword">${query}</span>`);
-          const stateName = result.state.replace(regex, `<span class="keyword">${query}</span>`);
-          const population = numberWithCommas(result.population);
-
-          return `<li>
-            ${cityName}, ${stateName} - 
-            ${population}
-            </li>`;
-        }).join('');
+        html = generateHTML(query, queryResults);
       }
-      
+
       resultsElement.innerHTML = html;
     }
 
