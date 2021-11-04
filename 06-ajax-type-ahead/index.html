@@ -26,7 +26,7 @@
     function getResults(query) {
       const results = allCities.filter(entry => {
         const regex = new RegExp(`^${query}`, 'gi');
-        return entry.city.match(regex);
+        return entry.city.match(regex) || entry.state.match(regex);
       });
       return results;
     }
