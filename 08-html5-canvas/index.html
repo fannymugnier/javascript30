@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <div class="controls">
+    <label for="color">Pick a color</label>
+    <input name="color" type="color" class="color-picker">
+    <label for="width">Change the line width</label>
+    <input name="width"" type="range" class="width-picker" min="1" max="100">
+  </div>
+  <script>
+    const colorPickerElement = document.querySelector('.color-picker');
+    const widthPickerElement = document.querySelector('.width-picker');
+    const canvas = document.querySelector('#draw');
+    const context = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight - 50;
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
+    context.lineWidth = 50;
+    widthPickerElement.value = context.lineWidth;
+
+    let isDrawing = false;
+    let lastX, lastY;
+    let hue = 0;
+    let drawingColor = '#000';
+
+    function updateParameter() {
+      if (this.name === 'color') drawingColor = this.value;
+      if (this.name === 'width') context.lineWidth = this.value;
+    }
+
+    function draw(e) {
+      if(!isDrawing) return;
+
+      context.strokeStyle = drawingColor;
+      context.beginPath();
+      context.moveTo(lastX, lastY);
+      context.lineTo(e.offsetX, e.offsetY);
+      context.stroke();
+
+      lastX = e.offsetX;
+      lastY = e.offsetY;
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+      lastX = e.offsetX;
+      lastY = e.offsetY;
+      isDrawing = true;
+    });
+
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+    colorPickerElement.addEventListener('input', updateParameter);
+    widthPickerElement.addEventListener('input', updateParameter);
+
+  </script>
+
+  <style>
+    html, body {
+      margin: 0;
+    }
+
+    canvas {
+      border-bottom: 1px solid #000;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 0;
+    }
+
+    .controls label {
+      margin-right: 10px;
+    }
+    
+    .controls input {
+      margin-right: 20px;
+    }
+  </style>
+</body>
+</html>
