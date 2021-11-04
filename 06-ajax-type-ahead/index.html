@@ -33,20 +33,20 @@
 
     const resultsElement = document.querySelector('.search-results');
 
-    function displayResults(results) {
-      const html = results.map(result => {
+    function displayResults() {
+      let html = '';
+      if(this.value) {
+      const queryResults = getResults(this.value);
+      html = queryResults.map(result => {
         return `<li>${result.city}, ${result.state} - ${result.population}</li>`;
       }).join('');
-      resultsElement.innerHTML = html;
-    }
+      }
 
-    function handleSearch() {
-      const queryResults = getResults(this.value);
-      displayResults(queryResults);
+      resultsElement.innerHTML = html;
     }
     
     const searchInputElement = document.querySelector('.search-input');
-    searchInputElement.addEventListener('input', handleSearch);
+    searchInputElement.addEventListener('input', displayResults);
   </script>
 </body>
 </html>
