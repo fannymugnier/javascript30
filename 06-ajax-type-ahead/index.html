@@ -8,12 +8,45 @@
 </head>
 <body>
   <h1>How many people are there in...</h1>
-  <div class="search-form">
-    <h3>Search for a city or a state (USA)</h3>
-    <input type="text" placeholder="City or State">
-  </div>
+  <h3>Search for a city or a state (USA)</h3>
+  <input type="text" placeholder="City or State" class="search-input">
+  <ul class="search-results"></ul>
+
   <script>
-    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    async function getAllCities() {
+      const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      const res = await fetch(endpoint);
+      const cities = await res.json();
+      return cities;
+    }
+
+    const allCities = [];
+    getAllCities().then(res => allCities.push(...res));
+
+    function getResults(query) {
+      const results = allCities.filter(entry => {
+        const regex = new RegExp(`^${query}`, 'gi');
+        return entry.city.match(regex);
+      });
+      return results;
+    }
+
+    const resultsElement = document.querySelector('.search-results');
+
+    function displayResults(results) {
+      const html = results.map(result => {
+        return `<li>${result.city}, ${result.state} - ${result.population}</li>`;
+      }).join('');
+      resultsElement.innerHTML = html;
+    }
+
+    function handleSearch() {
+      const queryResults = getResults(this.value);
+      displayResults(queryResults);
+    }
+    
+    const searchInputElement = document.querySelector('.search-input');
+    searchInputElement.addEventListener('input', handleSearch);
   </script>
 </body>
 </html>
