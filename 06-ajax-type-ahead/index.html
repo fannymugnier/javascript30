@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Type Ahead</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>How many people are there in...</h1>
@@ -17,11 +18,12 @@
       const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
       const res = await fetch(endpoint);
       const cities = await res.json();
-      return cities;
+      allCities.push(...cities);
     }
-
-    const allCities = [];
-    getAllCities().then(res => allCities.push(...res));
+    
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     function getResults(query) {
       const results = allCities.filter(entry => {
@@ -31,21 +33,33 @@
       return results;
     }
 
-    const resultsElement = document.querySelector('.search-results');
-
     function displayResults() {
+      const query = this.value;
       let html = '';
-      if(this.value) {
-      const queryResults = getResults(this.value);
-      html = queryResults.map(result => {
-        return `<li>${result.city}, ${result.state} - ${result.population}</li>`;
-      }).join('');
-      }
 
+      if(query) {
+        const queryResults = getResults(query);
+        html = queryResults.map(result => {
+          const regex = new RegExp(query, 'gi');
+          const cityName = result.city.replace(regex, `<span class="keyword">${query}</span>`);
+          const stateName = result.state.replace(regex, `<span class="keyword">${query}</span>`);
+          const population = numberWithCommas(result.population);
+
+          return `<li>
+            ${cityName}, ${stateName} - 
+            ${population}
+            </li>`;
+        }).join('');
+      }
+      
       resultsElement.innerHTML = html;
     }
-    
+
+    const allCities = [];
+    const resultsElement = document.querySelector('.search-results');
     const searchInputElement = document.querySelector('.search-input');
+
+    getAllCities();
     searchInputElement.addEventListener('input', displayResults);
   </script>
 </body>
