@@ -1,4 +1,36 @@
+body {
+  background-color: rgb(25, 31, 41);
+  color: #fff;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.search-input {
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.search-input:focus {
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+}
+
+li {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: rgb(25, 31, 41);
+  margin-bottom: 10px;
+}
+
 .keyword {
   background-color: rgb(195, 248, 255);
+  color: rgb(25, 31, 41);
   text-transform: capitalize;
 }
