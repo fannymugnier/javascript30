@@ -3,6 +3,7 @@ const playButton = document.querySelector('.toggle');
 const progressBar = document.querySelector('.progress__filled');
 const videoDurationBar = document.querySelector('.progress');
 const rangeElements = document.querySelectorAll('.player__slider');
+const timer = document.querySelector('.player__timer');
 
 let isChangingVideoTime = false;
 
@@ -16,9 +17,16 @@ function togglePlay() {
   }
 }
 
+function updateDisplayedTimer() {
+  const minutes = ('00' + parseInt(video.currentTime / 60)).slice(-2);
+  const seconds = ('00' + parseInt(video.currentTime % 60)).slice(-2);
+  timer.textContent = `${minutes}:${seconds}`;
+}
+
 function updateProgressBar() {
   const progression = (video.currentTime / video.duration) * 100;
   progressBar.style.setProperty('flex-basis', `${progression}%`);
+  updateDisplayedTimer();
 }
 
 function updateVideoTime(e) {
