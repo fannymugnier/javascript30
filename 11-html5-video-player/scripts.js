@@ -6,7 +6,7 @@ const rangeElements = document.querySelectorAll('.player__slider');
 const timer = document.querySelector('.player__timer');
 const skipButtons = document.querySelectorAll('[data-skip]');
 
-let isChangingVideoTime = false;
+let isSlidingTime = false;
 
 function togglePlay() {
   if (video.paused) {
@@ -27,10 +27,9 @@ function updateDisplayedTimer() {
 function updateProgressBar() {
   const progression = (video.currentTime / video.duration) * 100;
   progressBar.style.setProperty('flex-basis', `${progression}%`);
-  updateDisplayedTimer();
 }
 
-function updateVideoTime(e) {
+function handleTimeSliding(e) {
   video.currentTime = video.duration * (e.offsetX / videoDurationBar.offsetWidth);
 }
 
@@ -47,16 +46,19 @@ playButton.addEventListener('click', togglePlay);
 video.addEventListener('click', togglePlay);
 
 // progress bar is being filled as video plays
-video.addEventListener('timeupdate', updateProgressBar);
+video.addEventListener('timeupdate', () => {
+  updateProgressBar();
+  updateDisplayedTimer();
+});
 
 // duration bar clickable to change video current time
-videoDurationBar.addEventListener('click', updateVideoTime);
+videoDurationBar.addEventListener('click', handleTimeSliding);
 videoDurationBar.addEventListener('mousemove', (e) => {
-  if (isChangingVideoTime) updateVideoTime(e);
+  if (isSlidingTime) handleTimeSliding(e);
 });
-videoDurationBar.addEventListener('mousedown', () => isChangingVideoTime = true);
-videoDurationBar.addEventListener('mouseup', () => isChangingVideoTime = false);
-videoDurationBar.addEventListener('mouseout', () => isChangingVideoTime = false);
+videoDurationBar.addEventListener('mousedown', () => isSlidingTime = true);
+videoDurationBar.addEventListener('mouseup', () => isSlidingTime = false);
+videoDurationBar.addEventListener('mouseout', () => isSlidingTime = false);
 
 // handle volume and speed values
 rangeElements.forEach(rangeElement => rangeElement.addEventListener('input', updateParameter));
