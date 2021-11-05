@@ -42,15 +42,25 @@
 
     <script>
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      let lastChecked;
 
       // make text unselectable while shift is pressed
       function handleSelection(e) {
         if (e.shiftKey) document.onselectstart = () => false;
-        if (e.key === "Shift" && !e.shiftKey) document.onselectstart = () => true;
+        if (e.key === 'Shift' && !e.shiftKey) document.onselectstart = () => true;
       }
-
+      
       function handleCheck(e) {
-     
+        let inBetween = false;
+
+        if (e.shiftKey && this.checked) {
+          checkboxes.forEach((checkbox) => {
+            if (checkbox === this || checkbox === lastChecked) inBetween = !inBetween;
+            if (inBetween) checkbox.checked = true;
+          });
+        }
+
+        lastChecked = this;
       }
 
       checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
