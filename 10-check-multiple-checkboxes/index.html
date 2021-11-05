@@ -40,8 +40,22 @@
       </div>
     </div>
 
-  <script>
+    <script>
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-  </script>
+      // make text unselectable while shift is pressed
+      function handleSelection(e) {
+        if (e.shiftKey) document.onselectstart = () => false;
+        if (e.key === "Shift" && !e.shiftKey) document.onselectstart = () => true;
+      }
+
+      function handleCheck(e) {
+     
+      }
+
+      checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+      window.addEventListener('keydown', handleSelection);
+      window.addEventListener('keyup', handleSelection);
+    </script>
   </body>
 </html>
