@@ -9,7 +9,7 @@
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'Hugo', age: 8 }];
 
     function makeGreen() {
       const p = document.querySelector('p');
@@ -18,28 +18,64 @@
     }
 
     // Regular
+    console.log('Hello world');
 
     // Interpolated
+    const word = 'world';
+    console.log('Hello %s', 'world');
+    console.log(`Hello ${word}`);
 
     // Styled
+    console.log('%cHello world, with style', 'background-color:#009688; color: #fff');
 
     // warning!
+    console.warn('This is a warning!');
 
     // Error :|
+    console.error('This is an error message');
 
     // Info
+    console.info('This is a cool info');
 
     // Testing
+    console.assert(12 === '12', 'This is false');
 
     // clearing
+    // console.clear();
 
     // Viewing DOM Elements
+    const paragraph = document.querySelector('p');
+    console.log(paragraph);
+    console.dir(paragraph);
 
     // Grouping together
+    dogs.forEach((dog, index) => {
+      console.groupCollapsed(`${index}`);
+      console.log(`Name: ${dog.name}`);
+      console.log(`Age: ${dog.age}`);
+      console.log(`Age (dog years): ${dog.age * 7}`);
+      console.groupEnd(`${index}`);
+    });
 
     // counting
+    console.count(`${dogs[0].name}`);
+    console.count(`${dogs[1].name}`);
+    console.count(`${dogs[0].name}`);
+    console.count(`${dogs[0].name}`);
+    console.count(`${dogs[1].name}`);
+    console.count(`${dogs[1].name}`);
 
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+      .then(res => res.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    // array of objects displayed as a table
+    console.table(dogs);
 
   </script>
 </body>
