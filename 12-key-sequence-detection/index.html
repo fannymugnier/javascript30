@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Sequence Detection</title>
+  
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      text-align: center;
+    }
+    img {
+      height: 100vh;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img src="secret.gif" alt="secret">
+
+  <script>
+    const pressedKeys = [];
+    const secretCode = 'rickroll';
+    const video = document.querySelector('img');
+
+    function handlePressedKey(e) {
+      pressedKeys.push(e.key);
+      if (pressedKeys.join('').includes(secretCode)) video.style.display = 'inline-block';
+    }
+
+    window.addEventListener('keyup', handlePressedKey);
+  </script>
+</body>
+</html>
+
