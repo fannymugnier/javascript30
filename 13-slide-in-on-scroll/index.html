@@ -44,6 +44,8 @@
   </div>
 
   <script>
+    const images = document.querySelectorAll('img.slide-in');
+    
     function debounce(func, wait = 20, immediate = true) {
       var timeout;
       return function() {
@@ -58,7 +60,15 @@
         if (callNow) func.apply(context, args);
       };
     }
+    
+    function handleScroll(e) {
+      images.forEach(image => {
+        const slideInOffsetY = (image.offsetTop + image.height / 2) - window.innerHeight;
+        if (window.scrollY >= slideInOffsetY) image.classList.add('active');
+      });
+    }
 
+    window.addEventListener('scroll', debounce(handleScroll, 15));
   </script>
 </body>
 </html>
