@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CSS Text Shadow Mouse Move Effect</title>
-  <link rel="stylesheet" href="style.css">
 
   <style>
     body {
@@ -29,7 +28,32 @@
   </div>
 
   <script>
-    
+    const sandbox = document.querySelector('.sandbox');
+    const text = sandbox.querySelector('h1');
+    const walk = 20;
+
+    function handleMouseMove(e) {
+      /* ES6 destructuring lines 42 & 43
+      const width = sandbox.offsetWidth;
+      const height = sandbox.offsetHeight;
+      let x = e.offsetX;
+      let y = e.offsetY;
+      */
+      const { offsetWidth: width, offsetHeight: height } = sandbox;
+      let { offsetX: x, offsetY: y } = e;
+
+      // if cursor is on the h1 element
+      if (this !== e.target) {
+        x += e.target.offsetLeft;
+        y += e.target.offsetTop;
+      }
+
+      xWalk = Math.round((x / width * walk) - (walk / 2));
+      yWalk = Math.round((y / height * walk) - (walk / 2));
+      text.style.textShadow = `${xWalk}px ${yWalk}px 0 rgba(0, 0, 0, 0.4)`;
+    }
+
+    sandbox.addEventListener('mousemove', handleMouseMove);
   </script>
 </body>
 </html>
