@@ -48,16 +48,15 @@
     const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
     const bandsList = document.querySelector('#bands');
 
-    const sortedBands = bands.sort((a, b) => {
+    function standardise(string) {
       const regex = /^(a |an |the )/i;
-      const standardisedA = a.replace(regex, '');
-      const standardisedB = b.replace(regex, '');
+      return string.replace(regex, '');
+    }
 
-      return standardisedA.localeCompare(standardisedB);
-    });
+    const sortedBands = bands.sort((a, b) => standardise(a).localeCompare(standardise(b)));
 
-    bandsList.innerHTML = sortedBands.map(band => { return `<li>${band}</li>` }).join('');
-    
+    bandsList.innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
+
   </script>
 </body>
 </html>
