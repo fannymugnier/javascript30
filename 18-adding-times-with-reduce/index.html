@@ -181,8 +181,23 @@
       Video 58
     </li>
   </ul>
-  
+
   <script>
+    const listElement = document.querySelector('.videos');
+    const timerElements = [...document.querySelectorAll('[data-time]')];
+
+    const timers = timerElements.map(timerElement => timerElement.dataset.time);
+    const timersInSeconds = timers.map(timer => {
+      const splitTimer = timer.split(':');
+      return splitTimer.reduce((minutes, seconds) => parseInt(minutes) * 60 + parseInt(seconds));
+    });
+
+    const totalSeconds = timersInSeconds.reduce((total, secs) => total + secs);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    listElement.insertAdjacentHTML('beforeend', `<li>Total ${hours}:${minutes}:${seconds}</li>`);
   </script>
 </body>
 </html>
