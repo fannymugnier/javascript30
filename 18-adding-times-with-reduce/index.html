@@ -186,13 +186,16 @@
     const listElement = document.querySelector('.videos');
     const timerElements = [...document.querySelectorAll('[data-time]')];
 
-    const timers = timerElements.map(timerElement => timerElement.dataset.time);
-    const timersInSeconds = timers.map(timer => {
-      const splitTimer = timer.split(':');
-      return splitTimer.reduce((minutes, seconds) => parseInt(minutes) * 60 + parseInt(seconds));
-    });
+    const totalSeconds = timerElements
+      .map(timerElement => timerElement.dataset.time)
+      .map(timer => {
+        return timer
+                .split(':')
+                .map(parseFloat)
+                .reduce((minutes, seconds) => minutes * 60 + seconds);
+      })
+      .reduce((total, secs) => total + secs);
 
-    const totalSeconds = timersInSeconds.reduce((total, secs) => total + secs);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
