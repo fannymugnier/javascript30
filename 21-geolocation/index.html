@@ -16,7 +16,16 @@
   </h1>
 
   <script>
+    const compass = document.querySelector('.arrow');
+    const speed = document.querySelector('.speed-value');
 
+    navigator.geolocation.watchPosition(data => {
+      compass.style.transform = `rotate(${data.coords.heading}deg)`;
+      speed.textContent = data.coords.speed;
+    }, (err) => {
+      console.error(err.message);
+      alert(err.message);
+    });
   </script>
 </body>
 </html>
