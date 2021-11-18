@@ -10,6 +10,7 @@ body {
 }
 
 .words {
+  min-height: 50vh;
   max-width: 500px;
   margin: 50px auto;
   background: white;
