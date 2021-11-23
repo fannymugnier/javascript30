@@ -17,11 +17,11 @@
     </select>
 
     <label for="rate">Rate:</label>
-    <input name="rate" type="range" min="0" max="3" value="1" step="0.1">
+    <input name="rate" type="range" min="0" max="2" value="1" step="0.1">
 
     <label for="pitch">Pitch:</label>
 
-    <input name="pitch" type="range" min="0" max="2" step="0.1">
+    <input name="pitch" type="range" min="0.1" max="2" step="0.1">
     <textarea name="text">Hello! I love JavaScript 👍</textarea>
     <button id="stop">Stop!</button>
     <button id="speak">Speak</button>
@@ -47,6 +47,8 @@
       voices = this.getVoices();
       
       voicesDropdown.innerHTML = voices
+        // add a filter to only get voices of a specific language
+        //.filter(voice => voice.lang.includes('en'))
         .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
         .join('');
       msg.voice = voices[0];
@@ -66,7 +68,7 @@
     speechSynthesis.addEventListener('voiceschanged', populateVoices);
     speakButton.addEventListener('click', toggleSpeech);
     stopButton.addEventListener('click', () => toggleSpeech(false));
-    options.forEach(option => option.addEventListener('input', updateOptions));
+    options.forEach(option => option.addEventListener('change', updateOptions));
   </script>
 
 </body>
