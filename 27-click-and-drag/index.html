@@ -45,21 +45,21 @@
       const endDragX = e.pageX;
       slider.scrollLeft = currentLeftScroll - (endDragX - startDragX);
     }
+
+    function toggleDrag() {
+      slider.classList.toggle('active');
+      isDragging = !isDragging;
+    }
     
     slider.addEventListener('mousedown', (e) => {
-      slider.classList.add('active');
-      isDragging = true;
+      toggleDrag();
       startDragX = e.pageX;
       currentLeftScroll = slider.scrollLeft;
     });
-    slider.addEventListener('mouseup', () => {
-      isDragging = false;
-      slider.classList.remove('active');
-    });
     slider.addEventListener('mouseleave', () => {
-      isDragging = false;
-      slider.classList.remove('active');
+      if (isDragging) toggleDrag();
     });
+    slider.addEventListener('mouseup', toggleDrag);
     slider.addEventListener('mousemove', drag);
   </script>
 
