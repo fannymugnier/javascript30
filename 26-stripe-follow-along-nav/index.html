@@ -76,6 +76,37 @@
   </nav>
 
   <script>
+    const navbar = document.querySelector('nav');
+    const listElements = document.querySelectorAll('.cool > li');
+    const dropdownBackground = document.querySelector('.dropdownBackground');
+    
+    function handleEnter() {
+      this.classList.add('trigger-enter', 'trigger-enter-active');
+      dropdownBackground.classList.add('open');
+
+      const dropdown = this.querySelector('.dropdown');
+      const dropdownCoords = dropdown.getBoundingClientRect();
+      const { height, width, top, left } = dropdownCoords;
+
+      const styles = {
+        height: `${height}px`,
+        width: `${width}px`,
+        transform: `translate(${left}px, ${top - navbar.offsetTop}px)`
+      }
+
+      Object.assign(dropdownBackground.style, styles);
+    }
+
+    function handleLeave() {
+      this.classList.remove('trigger-enter', 'trigger-enter-active');
+      dropdownBackground.classList.remove('open');
+    }
+
+    listElements.forEach(li => {
+      li.addEventListener('mouseenter', handleEnter);
+      li.addEventListener('mouseleave', handleLeave);
+    });
+  
   </script>
 
 </body>
