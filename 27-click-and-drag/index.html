@@ -35,7 +35,32 @@
   </div>
 
   <script>
+    const slider = document.querySelector('.items');
+    let isDragging = false;
+    let startDragX, currentLeftScroll;
+
+    function drag(e) {
+      if (!isDragging) return;
+
+      const endDragX = e.pageX;
+      slider.scrollLeft = currentLeftScroll - (endDragX - startDragX);
+    }
     
+    slider.addEventListener('mousedown', (e) => {
+      slider.classList.add('active');
+      isDragging = true;
+      startDragX = e.pageX;
+      currentLeftScroll = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseup', () => {
+      isDragging = false;
+      slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseleave', () => {
+      isDragging = false;
+      slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', drag);
   </script>
 
   </body>
