@@ -74,6 +74,10 @@ li.logo {
   font-size: 30px;
 }
 
+.fixed-nav li.logo {
+  max-width: 300px;
+}
+
 li.logo a {
   color: black;
 }
@@ -85,4 +89,8 @@ nav a {
   color: white;
   transition: all 0.2s;
   text-transform: uppercase;
+}
+
+.fixed-nav {
+  position: fixed;
 }
