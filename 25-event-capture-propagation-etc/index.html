@@ -14,10 +14,28 @@
     </div>
   </div>
 
-  <button></button>
+  <button class="infinite">Click me (infinite)</button>
+  <button class="once">Click me (once)</button>
+  <p>Counter: <span class="counter">0</span></p>
 
   <script>
+    const divElements = document.querySelectorAll('div');
+    const infiniteButton = document.querySelector('.infinite');
+    const oneClickButton = document.querySelector('.once');
+    const counter = document.querySelector('.counter');
 
+    function logText(e) {
+      console.log(this.classList.value);
+      // e.stopPropagation(); // prevent bubbling, the event is triggered only on the main element
+    }
+
+    function updateCounter() {
+      counter.textContent = parseInt(counter.textContent) + 1;
+    }
+
+    divElements.forEach(div => div.addEventListener('click', logText, { capture: true })); // reverse order of bubbling
+    infiniteButton.addEventListener('click', updateCounter);
+    oneClickButton.addEventListener('click', updateCounter, { once: true }); // the click event can only be triggered once on this button
   </script>
 </body>
 </html>
